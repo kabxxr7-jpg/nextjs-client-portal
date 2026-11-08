@@ -142,6 +142,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 @media (max-width: 640px) {
   table.stack thead { display: none; }
   table.stack tr { display: block; border-top: 1px solid var(--border); padding: 10px 0; }
+  table.stack tbody tr:first-child { border-top: 0; padding-top: 0; }
   table.stack td { display: flex; justify-content: space-between; gap: 12px; border: 0; padding: 4px 0; }
   table.stack td::before { content: attr(data-label); color: var(--muted); font-size: 0.85rem; }
   table.stack td.num { text-align: right; }

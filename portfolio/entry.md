@@ -1,6 +1,6 @@
 # Portfolio entry: Next.js + Supabase client portal (nextjs-portal)
 
-Status: live at https://fernhill-client-portal.vercel.app since 2026-11-09 (Vercel; Supabase free plan, in its own schema inside the shared "kabiir" project). Verified 2026-11-09: 98/98 tests (59 row-level security tests against the live database), live browser run passed. Repo not published yet (waiting for the user's go); proposed: https://github.com/kabxxr7-jpg/nextjs-client-portal
+Status: live at https://fernhill-client-portal.vercel.app since 2026-11-09 (Vercel; Supabase free plan, in its own schema inside the shared "kabiir" project). Verified 2026-11-09: 98/98 tests (59 row-level security tests against the live database), live browser run passed. Repo public since 2026-11-09: https://github.com/kabxxr7-jpg/nextjs-client-portal
 
 ## Title (max 70)
 Next.js + Supabase Client Portal With Row-Level Security
@@ -13,6 +13,7 @@ Next.js, Supabase, PostgreSQL, Row Level Security, TypeScript, React, Vercel, Au
 
 ## Link
 https://fernhill-client-portal.vercel.app (one-click demo logins on the home page)
+Code: https://github.com/kabxxr7-jpg/nextjs-client-portal
 
 ## Screenshots (light mode, 2x, fictional names, no phone numbers or emails shown; in this folder)
 1. `1-try-it-demo-logins.png` - public try-it page: one-click client and admin logins, what to try, how access is enforced

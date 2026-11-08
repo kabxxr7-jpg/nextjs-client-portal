@@ -2,6 +2,8 @@
 
 **Live demo:** https://fernhill-client-portal.vercel.app (one-click demo logins on the home page)
 
+[![ci](https://github.com/kabxxr7-jpg/nextjs-client-portal/actions/workflows/ci.yml/badge.svg)](https://github.com/kabxxr7-jpg/nextjs-client-portal/actions/workflows/ci.yml)
+
 A client portal for a fictional design agency. Each client signs in and sees only their own projects, invoices, files and status updates. The agency admin sees everything and can upload files, post updates and mark invoices paid. Every change lands in an activity log.
 
 The rule "a client sees only their own rows" is enforced **inside Postgres with row-level security**, not by hiding things in the UI. The app only ever holds Supabase's public anon key, so every query runs as the signed-in user, and the same rules apply to anyone calling the Supabase API directly. A test suite proves it against the live database.

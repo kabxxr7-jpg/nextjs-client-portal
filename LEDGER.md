@@ -1,6 +1,6 @@
 # nextjs-portal: proposed ledger lines
 
-Written by the nextjs-portal side session on 2026-11-09 for the frontdesk session to merge into `~/upwork-proposals/claims-ledger.md` and `proof-links.md`. Not merged by this session. The repo link is valid only after the user's go to publish.
+Written by the nextjs-portal side session on 2026-11-09 for the frontdesk session to merge into `~/upwork-proposals/claims-ledger.md` and `proof-links.md`. Not merged by this session. Repo public since 2026-11-09 (user's go).
 
 ## claims-ledger.md, section B (new row)
 
@@ -12,7 +12,7 @@ Written by the nextjs-portal side session on 2026-11-09 for the frontdesk sessio
 
 | Topic | Link | Notes |
 |---|---|---|
-| Next.js + Supabase portals / dashboards with auth and RLS (client portal, member area, SaaS MVP jobs) | https://fernhill-client-portal.vercel.app | Label: "self-initiated demo, fictional agency and clients; one-click demo logins". Best pages: sign in as Maya, then Security check (10/10 blocked); then Priya (admin). Hosted on Vercel, not the Mac, so it is up when the Mac is off. Supabase free projects pause after a week without traffic: open it before pasting. Code (after publish): https://github.com/kabxxr7-jpg/nextjs-client-portal |
+| Next.js + Supabase portals / dashboards with auth and RLS (client portal, member area, SaaS MVP jobs) | https://fernhill-client-portal.vercel.app | Label: "self-initiated demo, fictional agency and clients; one-click demo logins". Best pages: sign in as Maya, then Security check (10/10 blocked); then Priya (admin). Hosted on Vercel, not the Mac, so it is up when the Mac is off. Supabase free projects pause after a week without traffic: open it before pasting. Code: https://github.com/kabxxr7-jpg/nextjs-client-portal |
 
 ## Honest notes for proposals
 

@@ -15,7 +15,8 @@ Measured facts only. Everything below was run or observed on 2026-11-09 (IST ear
 - RLS suite against the live database, public anon key only (no service key anywhere): 59 passed.
 - Full run: 4 files, 98/98 passed. Output: `evidence/test-run-2026-11-09.txt`.
 - The RLS suite passed on its first run against the live database (55/55, before 4 tests were added for the advisor fixes).
-- CI workflow written (`.github/workflows/ci.yml`: typecheck, unit, RLS when secrets are set, build). **Not yet run on GitHub**: the repo is not published.
+- CI (GitHub Actions, `.github/workflows/ci.yml`): green on the first two runs, 2026-11-09. Run 42536906333 (with repository secrets): typecheck, 39 unit passed, 59 RLS passed against the live database, `next build` compiled. Run 42536879694 (pushed before the secrets were added): green with the RLS step skipped by design.
+- Repo public since 2026-11-09: https://github.com/kabxxr7-jpg/nextjs-client-portal (gitleaks clean on the full history before the push).
 
 ## Live browser run (headless Chromium, 2x, light mode)
 
@@ -68,5 +69,4 @@ Security advisor:
 
 - No Lighthouse or load test.
 - No real email sending: magic links are off (the demo emails use `.test`).
-- CI has not run on GitHub yet; the repo is not public.
 - Activity no longer logs sign-ins (removed with the advisor fix).

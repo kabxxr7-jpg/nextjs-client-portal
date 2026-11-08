@@ -7,7 +7,7 @@ const env = Object.fromEntries(
   readFileSync(new URL("../.env.local", import.meta.url), "utf8")
     .split("\n").map((l) => l.match(/^([A-Z_]+)=(.*)$/)).filter(Boolean).map((m) => [m[1], m[2].trim()]),
 );
-const sb = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, { auth: { persistSession: false } });
+const sb = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, { db: { schema: "portal" }, auth: { persistSession: false } });
 const { error: signInError } = await sb.auth.signInWithPassword({ email: "admin@fernhill-studio.test", password: env.DEMO_PASSWORD });
 if (signInError) throw signInError;
 
@@ -42,7 +42,7 @@ const files = [
 for (const f of files) {
   const path = `${f.client}/${f.name}`;
   const blob = pdf(f.text);
-  const up = await sb.storage.from("client-files").upload(path, blob, { contentType: "application/pdf", upsert: false });
+  const up = await sb.storage.from("portal-client-files").upload(path, blob, { contentType: "application/pdf", upsert: false });
   if (up.error) throw up.error;
   const row = await sb.from("files").insert(
     { client_id: f.client, project_id: f.project, name: f.name.replace(/^seed-/, ""), storage_path: path, size_bytes: blob.size, is_seed: true },

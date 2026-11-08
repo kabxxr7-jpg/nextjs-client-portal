@@ -29,7 +29,7 @@ on conflict (id) do update set encrypted_password = excluded.encrypted_password;
 insert into auth.identities (provider_id, user_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
 values ('${id}', '${id}', '{"sub":"${id}","email":"${email}","email_verified":true}', 'email', now(), now(), now())
 on conflict (provider_id, provider) do nothing;
-insert into public.profiles (id, full_name, role, client_id) values ('${id}', '${name}', '${role}', ${client})
+insert into portal.profiles (id, full_name, role, client_id) values ('${id}', '${name}', '${role}', ${client})
 on conflict (id) do nothing;
 `;
 }

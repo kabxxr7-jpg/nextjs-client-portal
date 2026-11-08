@@ -10,7 +10,7 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string
   const supabase = await createClient();
   const { data: file } = await supabase.from("files").select("storage_path, name").eq("id", id).maybeSingle();
   if (!file) return new NextResponse("Not found", { status: 404 });
-  const { data, error } = await supabase.storage.from("client-files").createSignedUrl(file.storage_path, 60);
+  const { data, error } = await supabase.storage.from("portal-client-files").createSignedUrl(file.storage_path, 60);
   if (error || !data) return new NextResponse("Not found", { status: 404 });
   return NextResponse.redirect(data.signedUrl, { status: 303 });
 }

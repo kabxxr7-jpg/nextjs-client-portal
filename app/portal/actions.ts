@@ -40,7 +40,7 @@ export async function uploadFile(_: FormState, form: FormData): Promise<FormStat
   if (!project) return { error: "Project not found." };
 
   const path = storagePath(project.client_id, f.name);
-  const up = await supabase.storage.from("client-files").upload(path, f, { contentType: f.type, upsert: false });
+  const up = await supabase.storage.from("portal-client-files").upload(path, f, { contentType: f.type, upsert: false });
   if (up.error) return { error: "Upload failed." };
 
   const { error } = await supabase.from("files").insert({
@@ -52,7 +52,7 @@ export async function uploadFile(_: FormState, form: FormData): Promise<FormStat
     uploaded_by: user.id,
   });
   if (error) {
-    await supabase.storage.from("client-files").remove([path]);
+    await supabase.storage.from("portal-client-files").remove([path]);
     return { error: "Could not save the file record." };
   }
   revalidatePath("/portal", "layout");
@@ -70,7 +70,7 @@ export async function markPaid(form: FormData): Promise<void> {
 export async function resetDemo(): Promise<void> {
   const { supabase } = await requireAdmin();
   const { data: extra } = await supabase.from("files").select("storage_path").eq("is_seed", false);
-  if (extra?.length) await supabase.storage.from("client-files").remove(extra.map((f) => f.storage_path));
+  if (extra?.length) await supabase.storage.from("portal-client-files").remove(extra.map((f) => f.storage_path));
   await supabase.rpc("reset_demo");
   revalidatePath("/portal", "layout");
 }

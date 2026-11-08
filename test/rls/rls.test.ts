@@ -8,6 +8,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { DEMO_ACCOUNTS, type DemoKey } from "@/lib/demo";
+import { DB_SCHEMA } from "@/lib/env";
 import { CLIENT, INVOICE, PROJECT, SEED_FILE } from "@/lib/seed-ids";
 import { runClientChecks } from "@/lib/security-checks";
 
@@ -24,11 +25,14 @@ const configured = !!(URL_ && ANON && PASSWORD);
 
 const TABLES = ["projects", "invoices", "files", "status_updates", "activity"] as const;
 
-function anon(): SupabaseClient {
-  return createClient(URL_!, ANON!, { auth: { persistSession: false, autoRefreshToken: false } });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Db = SupabaseClient<any, any, any, any, any>;
+
+function anon(): Db {
+  return createClient(URL_!, ANON!, { db: { schema: DB_SCHEMA }, auth: { persistSession: false, autoRefreshToken: false } });
 }
 
-async function signedIn(key: DemoKey): Promise<SupabaseClient> {
+async function signedIn(key: DemoKey): Promise<Db> {
   const sb = anon();
   const email = DEMO_ACCOUNTS.find((a) => a.key === key)!.email;
   const { error } = await sb.auth.signInWithPassword({ email, password: PASSWORD! });
@@ -37,9 +41,9 @@ async function signedIn(key: DemoKey): Promise<SupabaseClient> {
 }
 
 describe.skipIf(!configured)("row-level security (live database, anon key only)", () => {
-  let visitor: SupabaseClient;
-  const clients = {} as Record<"larkspur" | "harbor", SupabaseClient>;
-  let admin: SupabaseClient;
+  let visitor: Db;
+  const clients = {} as Record<"larkspur" | "harbor", Db>;
+  let admin: Db;
 
   beforeAll(async () => {
     visitor = anon();
@@ -61,13 +65,13 @@ describe.skipIf(!configured)("row-level security (live database, anon key only)"
     });
 
     it("cannot create a signed link to any stored file", async () => {
-      const { data, error } = await visitor.storage.from("client-files").createSignedUrl(SEED_FILE.larkspur, 60);
+      const { data, error } = await visitor.storage.from("portal-client-files").createSignedUrl(SEED_FILE.larkspur, 60);
       expect(error).toBeTruthy();
       expect(data?.signedUrl).toBeFalsy();
     });
 
     it("cannot list the private bucket", async () => {
-      const { data } = await visitor.storage.from("client-files").list(CLIENT.larkspur);
+      const { data } = await visitor.storage.from("portal-client-files").list(CLIENT.larkspur);
       expect(data ?? []).toHaveLength(0);
     });
   });
@@ -138,18 +142,18 @@ describe.skipIf(!configured)("row-level security (live database, anon key only)"
       });
 
       it(`can open its own file but not ${other}'s`, async () => {
-        const own = await clients[me].storage.from("client-files").createSignedUrl(SEED_FILE[me], 60);
+        const own = await clients[me].storage.from("portal-client-files").createSignedUrl(SEED_FILE[me], 60);
         expect(own.error).toBeNull();
         expect(own.data?.signedUrl).toMatch(/^https:\/\//);
-        const theirs = await clients[me].storage.from("client-files").createSignedUrl(SEED_FILE[other], 60);
+        const theirs = await clients[me].storage.from("portal-client-files").createSignedUrl(SEED_FILE[other], 60);
         expect(theirs.error).toBeTruthy();
-        const dl = await clients[me].storage.from("client-files").download(SEED_FILE[other]);
+        const dl = await clients[me].storage.from("portal-client-files").download(SEED_FILE[other]);
         expect(dl.data).toBeNull();
       });
 
       it(`cannot upload to storage, even into its own folder`, async () => {
         const { error } = await clients[me].storage
-          .from("client-files")
+          .from("portal-client-files")
           .upload(`${CLIENT[me]}/forged-${Date.now()}.txt`, new Blob(["x"], { type: "text/plain" }));
         expect(error).toBeTruthy();
       });

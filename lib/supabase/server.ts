@@ -1,12 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { supabaseAnonKey, supabaseUrl } from "@/lib/env";
+import { DB_SCHEMA, supabaseAnonKey, supabaseUrl } from "@/lib/env";
 
 /** Supabase client bound to the visitor's session cookies. Only ever uses the anon key:
  *  every query runs as the signed-in user, so Postgres row-level security decides what comes back. */
 export async function createClient() {
   const cookieStore = await cookies();
   return createServerClient(supabaseUrl(), supabaseAnonKey(), {
+    db: { schema: DB_SCHEMA },
     cookies: {
       getAll() {
         return cookieStore.getAll();

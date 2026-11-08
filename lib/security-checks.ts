@@ -1,4 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped tables in the portal schema
+type Db = SupabaseClient<any, any, any, any, any>;
 import { CLIENT, INVOICE, SEED_FILE, otherClient } from "@/lib/seed-ids";
 
 export interface CheckResult {
@@ -10,7 +13,7 @@ export interface CheckResult {
 
 /** Runs real queries as the signed-in client, aimed at the OTHER client's data.
  *  Each one should come back empty or be refused by Postgres. Nothing here is mocked. */
-export async function runClientChecks(sb: SupabaseClient, myClientId: string): Promise<CheckResult[]> {
+export async function runClientChecks(sb: Db, myClientId: string): Promise<CheckResult[]> {
   const otherKey = otherClient(myClientId);
   const other = CLIENT[otherKey];
   const otherInvoice = otherKey === "harbor" ? INVOICE.harborOpen : INVOICE.larkspurOpen;
@@ -61,7 +64,7 @@ export async function runClientChecks(sb: SupabaseClient, myClientId: string): P
 
   {
     const path = SEED_FILE[otherKey];
-    const { data, error } = await sb.storage.from("client-files").createSignedUrl(path, 60);
+    const { data, error } = await sb.storage.from("portal-client-files").createSignedUrl(path, 60);
     out.push({
       name: "Get a download link for another client's file",
       attempt: `storage.createSignedUrl('${path.split("/")[1]}')`,

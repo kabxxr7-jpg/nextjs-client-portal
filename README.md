@@ -1,6 +1,6 @@
 # Fernhill Studio client portal (Next.js + Supabase demo)
 
-**Live demo:** LIVE_URL (one-click demo logins on the home page)
+**Live demo:** https://fernhill-client-portal.vercel.app (one-click demo logins on the home page)
 
 A client portal for a fictional design agency. Each client signs in and sees only their own projects, invoices, files and status updates. The agency admin sees everything and can upload files, post updates and mark invoices paid. Every change lands in an activity log.
 
@@ -19,7 +19,7 @@ The rule "a client sees only their own rows" is enforced **inside Postgres with 
 - Clients: overview, projects with progress and status updates, invoices (open / overdue / paid), files, activity log
 - Admin: every client's data, post a status update, upload a file into a client's private folder, mark an invoice paid, reset the demo
 - Files in a **private** Supabase Storage bucket; downloads go through 60-second signed links created with the user's own session
-- Activity log written by **database triggers** (invoice paid, file uploaded, status posted, sign-in), so the app can't skip or forge entries
+- Activity log written by **database triggers** (invoice paid, file uploaded, status posted), so the app can't skip or forge entries
 - Light and dark mode (follows the system, with a toggle), works on a phone (tables stack into cards)
 
 ## How access is enforced
@@ -29,24 +29,27 @@ The rule "a client sees only their own rows" is enforced **inside Postgres with 
 | Table grants | `anon` has no rights on any portal table. Signed-out requests are refused outright |
 | RLS: read | Every table: `is_admin() or client_id = my_client_id()`. `clients` and `profiles` show only your own row |
 | RLS: write | Insert/update/delete only for admins. No policy at all lets anyone write `activity` (triggers do) or change `profiles` (no self-promotion to admin) |
-| Helpers | `is_admin()` and `my_client_id()` are `security definer` functions with a fixed `search_path`, so policies don't recurse into `profiles` |
+| Helpers | `is_admin()` and `my_client_id()` are `security definer` functions with a fixed `search_path`, kept in `portal_private`, a schema the API doesn't expose, so they can't be called over HTTP. `reset_demo()` runs with the caller's rights, so RLS applies to it too |
 | Integrity | A trigger copies `client_id` onto status updates from their project; `paid_at` is set by the database, never by the client |
 | Storage | Bucket `client-files` is private. Files live under `<client_id>/…`; clients can read only their own folder, only admins upload or delete |
 | App | No service-role key anywhere. No query adds `where client_id = mine`. Filtering is left to RLS on purpose. Server actions check the role only to give a friendly error |
 
-Schema and policies: [`supabase/migrations/0001_portal.sql`](supabase/migrations/0001_portal.sql).
+Schema and policies: [`supabase/migrations/`](supabase/migrations/). Everything lives in a `portal` schema (plus `portal_private` for the helpers), so the portal can share a Supabase project without touching `public`; [`supabase/rollback.sql`](supabase/rollback.sql) removes it cleanly. Supabase's security advisor reports no findings for either schema.
 
 ## Tests
 
 ```bash
 npm test          # unit tests (no network)
 npm run test:rls  # RLS suite against the live database with the anon key
+node scripts/e2e-live.mjs out/  # browser run on the live site + screenshots (needs playwright-core)
 ```
 
-- **Unit (UNIT_COUNT):** money/date formatting, invoice states, upload checks (type, 4 MB limit), file-name cleaning (path traversal), storage paths can't be steered into another client's folder, open-redirect guard, demo accounts
-- **RLS (RLS_COUNT, live database, anon key only):** a signed-out visitor reads nothing and can't sign a file link; for **each** client: every row returned is theirs, asking for the other client's rows by `client_id` or exact id returns nothing, can't mark an invoice paid, can't promote itself to admin, can't insert updates/files/activity, can't delete files, can open its own file but not the other client's, can't upload, can't run the admin reset, and the in-app security check reports all attempts blocked; the admin reads both clients and marking an invoice paid stamps `paid_at` and logs it for that client only
+- **Unit (39 tests):** money/date formatting, invoice states, upload checks (type, 4 MB limit), file-name cleaning (path traversal), storage paths can't be steered into another client's folder, open-redirect guard, demo accounts
+- **RLS (59 tests, live database, anon key only):** a signed-out visitor reads nothing and can't sign a file link; for **each** client: every row returned is theirs, asking for the other client's rows by `client_id` or exact id returns nothing, can't mark an invoice paid, can't promote itself to admin, can't insert updates/files/activity, can't delete files, can open its own file but not the other client's, can't upload, can't run the admin reset or call the RLS helper functions, can't delete status updates, and the in-app security check reports all attempts blocked; the admin reads both clients and marking an invoice paid stamps `paid_at` and logs it for that client only
 
 CI (GitHub Actions) runs typecheck, unit tests, the RLS suite (when the repository secrets are set) and a production build.
+
+Last full run against the live database: 98/98 passed on 2026-11-09 ([`evidence/test-run-2026-11-09.txt`](evidence/test-run-2026-11-09.txt)). A browser run on the live site (sign in, security check, open a file, admin update/upload/mark paid, each client sees only their own changes, phone layout, reset) is in [`evidence/e2e-live-2026-11-09.json`](evidence/e2e-live-2026-11-09.json).
 
 ## Real vs simulated
 
@@ -57,11 +60,11 @@ CI (GitHub Actions) runs typecheck, unit tests, the RLS suite (when the reposito
 | Files | Real private Supabase Storage with storage RLS and signed links | Seed files are small generated PDFs |
 | Invoices | Real records, status and timestamps in Postgres | "Mark paid" records a payment; no card is charged and no payment provider is connected |
 | Clients and agency | – | Fernhill Studio, Larkspur Bakery and Harbor Lane Yoga are fictional |
-| Hosting | Real Vercel deployment, Supabase free tier | Anyone can use the demo admin; an admin reset puts the data back |
+| Hosting | Real Vercel deployment (functions in Singapore, next to the database), Supabase free tier; the portal shares a project with another app in its own schema | Anyone can use the demo admin; an admin reset puts the data back |
 
 ## Run it yourself
 
-1. Create a Supabase project. Run `supabase/migrations/0001_portal.sql`, then `supabase/seed.sql`, in the SQL editor.
+1. In a Supabase project, run `supabase/migrations/0001_portal.sql`, `0002_advisor_fixes.sql`, then `supabase/seed.sql` in the SQL editor. Add `portal` to Project Settings → Data API → Exposed schemas.
 2. `cp .env.example .env.local` and fill in the project URL, the anon (publishable) key and a long `DEMO_PASSWORD`.
 3. `node scripts/seed-users.mjs` prints SQL for the three demo users (bcrypt hash only). Run it in the SQL editor.
 4. `npm install`, `node scripts/seed-files.mjs`, then `npm run dev`.

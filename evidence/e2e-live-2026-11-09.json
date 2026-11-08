@@ -1,0 +1,93 @@
+[
+  {
+    "at": "2026-11-08T23:36:43.085Z",
+    "step": "maya sign-in ms",
+    "result": 2145
+  },
+  {
+    "at": "2026-11-08T23:36:44.936Z",
+    "step": "maya security check",
+    "result": "10 / 10 blocked"
+  },
+  {
+    "at": "2026-11-08T23:36:45.487Z",
+    "step": "maya file count",
+    "result": 2
+  },
+  {
+    "at": "2026-11-08T23:36:46.205Z",
+    "step": "maya open own file",
+    "result": {
+      "status": 303,
+      "redirectsToSignedStorageUrl": true
+    }
+  },
+  {
+    "at": "2026-11-08T23:36:46.757Z",
+    "step": "signed url fetch",
+    "result": {
+      "status": 200,
+      "type": "application/pdf"
+    }
+  },
+  {
+    "at": "2026-11-08T23:36:49.408Z",
+    "step": "admin sign-in ms",
+    "result": 1889
+  },
+  {
+    "at": "2026-11-08T23:36:51.873Z",
+    "step": "admin posted update",
+    "result": true
+  },
+  {
+    "at": "2026-11-08T23:36:52.730Z",
+    "step": "admin uploaded file to Harbor Lane",
+    "result": true
+  },
+  {
+    "at": "2026-11-08T23:36:55.517Z",
+    "step": "admin marked NB-1003 paid",
+    "result": true
+  },
+  {
+    "at": "2026-11-08T23:36:59.801Z",
+    "step": "maya activity has NB-1003 paid",
+    "result": true
+  },
+  {
+    "at": "2026-11-08T23:36:59.801Z",
+    "step": "maya activity has status update",
+    "result": true
+  },
+  {
+    "at": "2026-11-08T23:36:59.801Z",
+    "step": "maya activity has Harbor upload (must be false)",
+    "result": false
+  },
+  {
+    "at": "2026-11-08T23:37:03.579Z",
+    "step": "sam sees uploaded file",
+    "result": true
+  },
+  {
+    "at": "2026-11-08T23:37:03.941Z",
+    "step": "sam activity has NB-1003 (must be false)",
+    "result": false
+  },
+  {
+    "at": "2026-11-08T23:37:08.058Z",
+    "step": "phone horizontal overflow (must be false)",
+    "result": false
+  },
+  {
+    "at": "2026-11-08T23:37:08.902Z",
+    "step": "dark mode body background",
+    "result": "rgb(20, 21, 19)"
+  },
+  {
+    "at": "2026-11-08T23:37:16.253Z",
+    "step": "after reset NB-1003 open",
+    "result": true
+  }
+]

@@ -15,7 +15,6 @@ export async function signIn(_: FormState, form: FormData): Promise<FormState> {
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: "That email and password don't match an account." };
-  await supabase.rpc("log_sign_in");
   redirect(safeNext(String(form.get("next") ?? "")));
 }
 
@@ -28,7 +27,6 @@ export async function demoSignIn(form: FormData): Promise<void> {
     password: demoPassword(),
   });
   if (error) redirect("/?error=demo-sign-in-failed");
-  await supabase.rpc("log_sign_in");
   redirect("/portal");
 }
 

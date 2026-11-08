@@ -1,0 +1,107 @@
+
+ RUN  v5.1.0 /Users/kabiir/proof-builds/nextjs-portal
+
+ ✓ test/unit/routes-demo.test.ts > isProtectedPath > guards /portal and everything under it 4ms
+ ✓ test/unit/routes-demo.test.ts > isProtectedPath > leaves public pages alone 1ms
+ ✓ test/unit/routes-demo.test.ts > safeNext > allows portal paths 0ms
+ ✓ test/unit/routes-demo.test.ts > safeNext > blocks open redirects and odd targets 1ms
+ ✓ test/unit/routes-demo.test.ts > demo accounts > has two clients and one admin, all on a non-routable .test domain 2ms
+ ✓ test/unit/routes-demo.test.ts > demo accounts > looks up by key 0ms
+ ✓ test/unit/routes-demo.test.ts > otherClient > points each client at the other one 0ms
+ ✓ test/unit/validate.test.ts > isUuid > accepts uuids and rejects everything else 3ms
+ ✓ test/unit/validate.test.ts > checkUpload > accepts an allowed type under the limit 1ms
+ ✓ test/unit/validate.test.ts > checkUpload > rejects missing or empty files 0ms
+ ✓ test/unit/validate.test.ts > checkUpload > rejects files over 4 MB 1ms
+ ✓ test/unit/validate.test.ts > checkUpload > rejects other types 0ms
+ ✓ test/unit/validate.test.ts > safeFileName > keeps ordinary names 1ms
+ ✓ test/unit/validate.test.ts > safeFileName > strips directories, including traversal attempts 0ms
+ ✓ test/unit/validate.test.ts > safeFileName > removes accents and odd characters 1ms
+ ✓ test/unit/validate.test.ts > safeFileName > never returns an empty name 0ms
+ ✓ test/unit/validate.test.ts > safeFileName > caps the length 1ms
+ ✓ test/unit/validate.test.ts > storagePath > puts the file under the client's folder, which storage RLS checks 0ms
+ ✓ test/unit/validate.test.ts > storagePath > cannot be steered into another folder by the file name 4ms
+ ✓ test/unit/validate.test.ts > storagePath > refuses a non-uuid client id 5ms
+ ✓ test/unit/validate.test.ts > checkStatusBody > trims and accepts normal text 1ms
+ ✓ test/unit/validate.test.ts > checkStatusBody > rejects empty, whitespace and non-strings 1ms
+ ✓ test/unit/validate.test.ts > checkStatusBody > rejects over 1000 characters 1ms
+ ✓ test/unit/format.test.ts > money > formats cents as dollars 41ms
+ ✓ test/unit/format.test.ts > shortDate > formats a date-only value without shifting the day 11ms
+ ✓ test/unit/format.test.ts > shortDate > formats a timestamp in UTC 1ms
+ ✓ test/unit/format.test.ts > shortDate > shows a dash for empty values 0ms
+ ✓ test/unit/format.test.ts > relativeTime > 2026-11-09T11:59:40Z -> just now 1ms
+ ✓ test/unit/format.test.ts > relativeTime > 2026-11-09T11:55:00Z -> 5 min ago 0ms
+ ✓ test/unit/format.test.ts > relativeTime > 2026-11-09T09:00:00Z -> 3 h ago 1ms
+ ✓ test/unit/format.test.ts > relativeTime > 2026-11-08T12:00:00Z -> 1 day ago 0ms
+ ✓ test/unit/format.test.ts > relativeTime > 2026-11-02T12:00:00Z -> 7 days ago 0ms
+ ✓ test/unit/format.test.ts > relativeTime > 2026-08-01T12:00:00Z -> Aug 1, 2026 1ms
+ ✓ test/unit/format.test.ts > fileSize > picks a sensible unit 0ms
+ ✓ test/unit/format.test.ts > invoiceState > paid wins over a past due date 0ms
+ ✓ test/unit/format.test.ts > invoiceState > open and past due is overdue 0ms
+ ✓ test/unit/format.test.ts > invoiceState > due today is still open 0ms
+ ✓ test/unit/format.test.ts > sumOpen > adds only unpaid invoices 0ms
+ ✓ test/unit/format.test.ts > projectStatusLabel > maps known statuses and passes unknown ones through 0ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > signed-out visitor with the anon key > reads nothing from projects 178ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > signed-out visitor with the anon key > reads nothing from invoices 127ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > signed-out visitor with the anon key > reads nothing from files 103ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > signed-out visitor with the anon key > reads nothing from status_updates 108ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > signed-out visitor with the anon key > reads nothing from activity 134ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > signed-out visitor with the anon key > reads nothing from clients 96ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > signed-out visitor with the anon key > reads nothing from profiles 114ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > signed-out visitor with the anon key > cannot create a signed link to any stored file 483ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > signed-out visitor with the anon key > cannot list the private bucket 128ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > every projects row returned belongs to larkspur 159ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > every invoices row returned belongs to larkspur 111ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > every files row returned belongs to larkspur 140ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > every status_updates row returned belongs to larkspur 130ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > every activity row returned belongs to larkspur 94ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > asking for harbor's projects by client_id returns 0 rows 102ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > asking for harbor's invoices by client_id returns 0 rows 149ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > asking for harbor's files by client_id returns 0 rows 103ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > asking for harbor's status_updates by client_id returns 0 rows 111ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > asking for harbor's activity by client_id returns 0 rows 139ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > sees only its own client record and its own profile 205ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > cannot fetch harbor's invoice or project by exact id 234ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > cannot mark its own invoice paid (0 rows changed, value unchanged) 354ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > cannot promote itself to admin 338ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > cannot insert status updates, files or activity rows 346ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > cannot call the RLS helper functions over the API 340ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > cannot delete status updates 237ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > cannot delete files rows 208ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > can open its own file but not harbor's 813ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > cannot upload to storage, even into its own folder 140ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > cannot run the admin-only reset 126ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client larkspur > the in-app security check page reports every attempt blocked 1135ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > every projects row returned belongs to harbor 106ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > every invoices row returned belongs to harbor 101ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > every files row returned belongs to harbor 135ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > every status_updates row returned belongs to harbor 97ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > every activity row returned belongs to harbor 105ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > asking for larkspur's projects by client_id returns 0 rows 130ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > asking for larkspur's invoices by client_id returns 0 rows 97ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > asking for larkspur's files by client_id returns 0 rows 103ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > asking for larkspur's status_updates by client_id returns 0 rows 129ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > asking for larkspur's activity by client_id returns 0 rows 93ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > sees only its own client record and its own profile 236ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > cannot fetch larkspur's invoice or project by exact id 194ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > cannot mark its own invoice paid (0 rows changed, value unchanged) 332ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > cannot promote itself to admin 335ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > cannot insert status updates, files or activity rows 330ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > cannot call the RLS helper functions over the API 326ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > cannot delete status updates 230ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > cannot delete files rows 228ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > can open its own file but not larkspur's 859ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > cannot upload to storage, even into its own folder 125ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > cannot run the admin-only reset 91ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > client harbor > the in-app security check page reports every attempt blocked 1100ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > admin > reads projects rows of both clients 106ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > admin > reads invoices rows of both clients 134ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > admin > reads files rows of both clients 89ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > admin > reads status_updates rows of both clients 108ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > admin > reads activity rows of both clients 126ms
+ ✓ test/rls/rls.test.ts > row-level security (live database, anon key only) > admin > marks an invoice paid; the database stamps paid_at and logs it for that client only 551ms
+
+ Test Files  4 passed (4)
+      Tests  98 passed (98)
+   Start at  05:00:44
+   Duration  15.94s (tests 97%, transform 2%, import 1%)
+

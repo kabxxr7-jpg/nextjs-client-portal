@@ -134,6 +134,20 @@ describe.skipIf(!configured)("row-level security (live database, anon key only)"
         expect(a.error?.code).toBe("42501");
       });
 
+      it(`cannot call the RLS helper functions over the API`, async () => {
+        for (const fn of ["is_admin", "my_client_id", "log_sign_in"]) {
+          const { error } = await clients[me].rpc(fn);
+          expect(error, fn).toBeTruthy();
+        }
+      });
+
+      it(`cannot delete status updates`, async () => {
+        const { data } = await clients[me].from("status_updates").delete().eq("client_id", CLIENT[me]).select();
+        expect(data ?? []).toHaveLength(0);
+        const still = await admin.from("status_updates").select("id").eq("client_id", CLIENT[me]);
+        expect((still.data ?? []).length).toBeGreaterThan(0);
+      });
+
       it(`cannot delete files rows`, async () => {
         const { data } = await clients[me].from("files").delete().eq("client_id", CLIENT[me]).select();
         expect(data ?? []).toHaveLength(0);

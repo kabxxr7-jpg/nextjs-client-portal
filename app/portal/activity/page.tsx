@@ -5,7 +5,7 @@ import { listActivity } from "@/lib/data";
 export const metadata = { title: "Activity" };
 
 const ICON: Record<string, string> = {
-  invoice_paid: "💳", file_uploaded: "📎", status_posted: "📝", signed_in: "🔑",
+  invoice_paid: "💳", file_uploaded: "📎", status_posted: "📝", demo_reset: "↺",
 };
 
 export default async function ActivityPage() {

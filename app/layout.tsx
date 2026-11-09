@@ -4,7 +4,7 @@ import { ThemeToggle, themeScript } from "@/components/ThemeToggle";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "Fernhill Studio client portal (demo)", template: "%s · Fernhill portal (demo)" },
+  title: { default: "Northwick Studio client portal (demo)", template: "%s · Northwick portal (demo)" },
   description:
     "Demo client portal built with Next.js and Supabase: sign-in, row-level security, file storage and an activity log. Fictional agency and clients.",
   robots: { index: false },
@@ -26,12 +26,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
-        <div className="demo-bar">Demo: Fernhill Studio and its clients are fictional. Data resets from the admin page.</div>
+        <div className="demo-bar">Demo: Northwick Studio and its clients are fictional. Data resets from the admin page.</div>
         <header className="topbar">
           <div className="wrap">
             <Link href="/" className="brand">
-              <span className="brand-mark" aria-hidden>F</span>
-              <span>Fernhill Studio <span className="muted" style={{ fontWeight: 400 }}>portal</span></span>
+              <span className="brand-mark" aria-hidden>N</span>
+              <span>Northwick Studio <span className="muted" style={{ fontWeight: 400 }}>portal</span></span>
             </Link>
             <span className="spacer" />
             <ThemeToggle />

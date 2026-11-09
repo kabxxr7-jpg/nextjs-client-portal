@@ -1,4 +1,4 @@
-# Fernhill Studio client portal (Next.js + Supabase demo)
+# Northwick Studio client portal (Next.js + Supabase demo)
 
 **Live demo:** https://fernhill-client-portal.vercel.app (one-click demo logins on the home page)
 
@@ -61,7 +61,7 @@ Last full run against the live database: 98/98 passed on 2026-11-09 ([`evidence/
 | Data isolation | Real Postgres row-level security, tested against the live database | – |
 | Files | Real private Supabase Storage with storage RLS and signed links | Seed files are small generated PDFs |
 | Invoices | Real records, status and timestamps in Postgres | "Mark paid" records a payment; no card is charged and no payment provider is connected |
-| Clients and agency | – | Fernhill Studio, Larkspur Bakery and Harbor Lane Yoga are fictional |
+| Clients and agency | – | Northwick Studio, Larkspur Bakery and Harbor Lane Yoga are fictional |
 | Hosting | Real Vercel deployment (functions in Singapore, next to the database), Supabase free tier; the portal shares a project with another app in its own schema | Anyone can use the demo admin; an admin reset puts the data back |
 
 ## Run it yourself

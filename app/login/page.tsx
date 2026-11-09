@@ -10,7 +10,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       <div className="wrap" style={{ maxWidth: 440 }}>
         <div className="card">
           <h1>Sign in</h1>
-          <p className="muted small">Fernhill Studio client portal.</p>
+          <p className="muted small">Northwick Studio client portal.</p>
           <LoginForm next={next} />
         </div>
         <p className="small muted" style={{ marginTop: 16 }}>

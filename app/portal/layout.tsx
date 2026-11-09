@@ -13,7 +13,7 @@ export default async function PortalLayout({ children }: { children: React.React
         <div className="wrap row" style={{ paddingTop: 10 }}>
           <div className="who" style={{ textAlign: "left" }}>
             <strong>{profile.full_name}</strong>
-            {isAdmin ? "Admin · Fernhill Studio" : `Client · ${profile.clients?.name ?? ""}`}
+            {isAdmin ? "Admin · Northwick Studio" : `Client · ${profile.clients?.name ?? ""}`}
           </div>
           <form action={signOut}>
             <SubmitButton className="btn ghost small" pending="Signing out…">Sign out</SubmitButton>

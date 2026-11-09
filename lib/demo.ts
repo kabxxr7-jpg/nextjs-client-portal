@@ -32,7 +32,7 @@ export const DEMO_ACCOUNTS: readonly DemoAccount[] = [
     email: "admin@fernhill-studio.test",
     name: "Priya Shah",
     role: "admin",
-    company: "Fernhill Studio (the agency)",
+    company: "Northwick Studio (the agency)",
     blurb: "Admin. Sees every client; uploads files, posts updates, marks invoices paid.",
   },
 ] as const;

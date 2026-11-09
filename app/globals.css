@@ -1,60 +1,60 @@
 :root {
-  --bg: #f7f6f2;
+  --bg: #f4f6f9;
   --surface: #ffffff;
-  --surface-2: #f0eee8;
-  --text: #1d1c1a;
-  --muted: #625f58;
-  --border: #e2dfd6;
-  --accent: #2f6b4f;
+  --surface-2: #e9edf3;
+  --text: #16202c;
+  --muted: #5a6778;
+  --border: #d7dee8;
+  --accent: #1f4e8c;
   --accent-text: #ffffff;
-  --accent-soft: #e3efe8;
+  --accent-soft: #e3ebf7;
   --warn: #9a5b00;
   --warn-soft: #fbefd9;
   --danger: #a3312b;
   --danger-soft: #f9e3e1;
-  --info: #2b5c9a;
-  --info-soft: #e2ecf8;
+  --info: #0f766e;
+  --info-soft: #d8f0ec;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 2px 8px rgb(0 0 0 / 0.04);
   --radius: 12px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #141513;
-    --surface: #1d1f1c;
-    --surface-2: #262924;
-    --text: #ecebe6;
-    --muted: #a5a39b;
-    --border: #33362f;
-    --accent: #6fbf95;
-    --accent-text: #0f1a14;
-    --accent-soft: #1f3328;
+    --bg: #0f141b;
+    --surface: #161d26;
+    --surface-2: #1e2733;
+    --text: #e6ebf1;
+    --muted: #9aa7b5;
+    --border: #2a3542;
+    --accent: #7fb0ea;
+    --accent-text: #0b1522;
+    --accent-soft: #1c2d44;
     --warn: #e7b058;
     --warn-soft: #3a2c14;
     --danger: #f08a82;
     --danger-soft: #3d1f1d;
-    --info: #8db8ef;
-    --info-soft: #1c2a3d;
+    --info: #5fd1c4;
+    --info-soft: #11312e;
     --shadow: none;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #141513;
-  --surface: #1d1f1c;
-  --surface-2: #262924;
-  --text: #ecebe6;
-  --muted: #a5a39b;
-  --border: #33362f;
-  --accent: #6fbf95;
-  --accent-text: #0f1a14;
-  --accent-soft: #1f3328;
+  --bg: #0f141b;
+  --surface: #161d26;
+  --surface-2: #1e2733;
+  --text: #e6ebf1;
+  --muted: #9aa7b5;
+  --border: #2a3542;
+  --accent: #7fb0ea;
+  --accent-text: #0b1522;
+  --accent-soft: #1c2d44;
   --warn: #e7b058;
   --warn-soft: #3a2c14;
   --danger: #f08a82;
   --danger-soft: #3d1f1d;
-  --info: #8db8ef;
-  --info-soft: #1c2a3d;
+  --info: #5fd1c4;
+  --info-soft: #11312e;
   --shadow: none;
   color-scheme: dark;
 }

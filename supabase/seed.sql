@@ -1,4 +1,4 @@
--- Demo data for the fictional agency "Fernhill Studio" and two fictional clients.
+-- Demo data for the fictional agency "Northwick Studio" and two fictional clients.
 -- Users are created separately (scripts/seed-users.mjs prints the SQL with a bcrypt hash,
 -- so the demo password never sits in this repo).
 
